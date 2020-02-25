@@ -8,6 +8,7 @@ folder public
 get /admin
 get /login
 post /logout
+get /
 
 @tables
 data
