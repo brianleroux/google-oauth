@@ -40,8 +40,9 @@ async function auth(req) {
   })
 
   let headers = {'content-type': 'application/json'}
-  let base = `https://www.googleapis.com/oauth2/v1`
-  let url = `${ base }/userinfo?alt=json&access_token=${ credentials.access_token }`
+  let base = `https://www.googleapis.com/gmail/v1`
+
+  let url = `${ base }/users/me/profile&access_token=${ credentials.access_token }`
   return get({ headers, url })
 }
 

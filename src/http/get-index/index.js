@@ -8,6 +8,7 @@ async function authorized(req) {
         <form action=/logout method=post>
           <button>logout</button>
         </form>
+
         <pre>${JSON.stringify( req.session, null, 2 )}</pre>
       `
     }
@@ -22,7 +23,7 @@ async function unauthorized(req) {
     let oAuth2Client = new google.auth.OAuth2(clientID, secret, redirect)
     let url = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
-      scope: 'https://www.googleapis.com/auth/userinfo.profile'
+      scope: 'https://www.googleapis.com/auth/gmail.readonly'
     })
     return {
       html: `<a href=${url}>Sign in with Google</a>`
