@@ -1,5 +1,5 @@
 @app
-learn-oauth
+sunny-luf
 
 @static
 folder _site
@@ -8,3 +8,9 @@ folder _site
 get /admin
 get /login
 post /logout
+
+@tables
+data
+  scopeID *String
+  dataID **String
+  ttl TTL
