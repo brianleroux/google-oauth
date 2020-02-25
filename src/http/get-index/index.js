@@ -1,15 +1,14 @@
 let arc = require('@architect/functions')
-let admin = require('./admin')
-let signin = require('./signin')
 
 async function http(req) {
-
-  let account = req.session.account
-  let render = account? admin : signin
-
-  return {
-    html: render(account)
+  if (req.path === '/') {
+    return {
+      html: 'good luck'
+    }
+  }
+  else {
+    return arc.http.proxy.public({spa: false})(req)
   }
 }
 
-exports.handler = arc.http.proxy.public({spa:false})//.async(http)
+exports.handler = arc.http.async(http)
