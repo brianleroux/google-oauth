@@ -2,10 +2,10 @@
 sunny-luf
 
 @static
-folder _site
+folder public
 
 @http
-get /admin
+get /
 get /login
 post /logout
 
