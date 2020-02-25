@@ -8,7 +8,7 @@ module.exports = function signin() {
 <!doctype html>
 <html>
 <body>
-<a href=${href}>Sign in with GitHub</a>
+<a href=${href}>Sign in with Google</a>
 </body>
 </html>`
 }
