@@ -32,7 +32,7 @@ async function auth(req) {
   let redirect = process.env.GOOGLE_REDIRECT_URL
 
   let oAuth2Client = new google.auth.OAuth2(clientID, secret, redirect)
-  let credentials = new Promise(function argh(res, rej) {
+  let credentials = await new Promise(function argh(res, rej) {
     oAuth2Client.getToken(code, function errback(err, tokens) {
       if (err) rej(err)
       else res(tokens)
