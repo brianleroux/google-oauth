@@ -5,7 +5,6 @@ sunny-luf
 folder public
 
 @http
-get /
 get /login
 post /logout
 get /
