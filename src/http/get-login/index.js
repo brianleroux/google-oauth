@@ -1,19 +1,42 @@
-let arc = require('@architect/functions')
-let github = require('./github')
+const { http } = require('@architect/functions')
+const { google } = require('googleapis')
 
 async function login(req) {
   if (req.query.code) {
-    let account = await github(req)
-    return {
-      session: {account},
-      location: '/admin'
+    try {
+      let account = await google(req)
+      return {
+        session: { account },
+        location: '/?success'
+      }
+    }
+    catch(e) {
+      console.log(e)
+      return {
+        location: `/?failed&message=${e.message}`
+      }
     }
   }
   else {
     return {
-      location: '/admin/?authorized=false'
+      location: '/?failed'
     }
   }
 }
 
-exports.handler = arc.http.async(login)
+async function google(req) {
+  let code = req.query.code
+  let clientID = process.env.GOOGLE_CLIENT_ID
+  let secret = process.env.GOOGLE_CLIENT_SECRET
+  let redirect = process.env.GOOGLE_REDIRECT_URL
+
+  let oAuth2Client = new google.auth.OAuth2(clientID, secret, redirect)
+  return new Promise(function argh(res, rej) {
+    oAuth2Client.getToken(code, function errback(err, tokens) {
+      if (err) rej(err)
+      else res(tokens)
+    })
+  })
+}
+
+exports.handler = http.async(login)
