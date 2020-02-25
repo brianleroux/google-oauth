@@ -4,7 +4,7 @@ const { google } = require('googleapis')
 async function login(req) {
   if (req.query.code) {
     try {
-      let account = await google(req)
+      let account = await auth(req)
       return {
         session: { account },
         location: '/?success'
@@ -24,7 +24,7 @@ async function login(req) {
   }
 }
 
-async function google(req) {
+async function auth(req) {
   let code = req.query.code
   let clientID = process.env.GOOGLE_CLIENT_ID
   let secret = process.env.GOOGLE_CLIENT_SECRET
