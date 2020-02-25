@@ -1,6 +1,6 @@
 {
   "name": "begin-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Begin app with the minimum necessary file structure",
   "scripts": {
     "start": "sandbox"
