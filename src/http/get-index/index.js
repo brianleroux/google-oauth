@@ -17,7 +17,7 @@ async function unauthorized(req) {
     let oAuth2Client = new google.auth.OAuth2(clientID, secret, redirect)
     let url = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
-      scope: 'https://www.googleapis.com/auth/gmail.readonly'
+      scope: 'https://www.googleapis.com/auth/userinfo.profile'
     })
     return {
       html: `<a href=${url}>Sign in with Google</a>`
