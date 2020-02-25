@@ -1,6 +1,5 @@
 const { http } = require('@architect/functions')
 const { google } = require('googleapis')
-//const { get } = require('tiny-json-http')
 
 async function login(req) {
   if (req.query.code) {
@@ -26,6 +25,7 @@ async function login(req) {
 }
 
 async function auth(req) {
+
   let code = req.query.code
   let clientID = process.env.GOOGLE_CLIENT_ID
   let secret = process.env.GOOGLE_CLIENT_SECRET
@@ -43,7 +43,7 @@ async function auth(req) {
 
   return new Promise(function ugh(res, rej) {
     const gmail = google.gmail({version: 'v1', auth: oAuth2Client})
-    gmail.users.getProfile(function(err, result) {
+    gmail.users.getProfile({ userId: 'me' }, function errback(err, result) {
       if (err) rej(err)
       else res(result)
     })
