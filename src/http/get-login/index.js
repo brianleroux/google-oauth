@@ -1,6 +1,6 @@
 const { http } = require('@architect/functions')
 const { google } = require('googleapis')
-const { get } = require('tiny-json-http')
+//const { get } = require('tiny-json-http')
 
 async function login(req) {
   if (req.query.code) {
@@ -39,11 +39,15 @@ async function auth(req) {
     })
   })
 
-  let headers = {'content-type': 'application/json'}
-  let base = `https://www.googleapis.com/gmail/v1`
+  oAuth2Client.setCredentials(credentials)
 
-  let url = `${ base }/users/me/profile&access_token=${ credentials.access_token }`
-  return get({ headers, url })
+  return new Promise(function ugh(res, rej) {
+    const gmail = google.gmail({version: 'v1', auth: oAuth2Client})
+    gmail.users.getProfile(function(err, result) {
+      if (err) rej(err)
+      else res(result)
+    })
+  })
 }
 
 exports.handler = http.async(login)
