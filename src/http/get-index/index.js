@@ -1,7 +1,15 @@
 const { google } = require('googleapis')
 const { http } = require('@architect/functions')
 
-async function handler(req) {
+async function authorized(req) {
+  if (req.session.account) {
+    return {
+      html: `<pre>${JSON.stringify( req.session, null, 2 )}</pre>`
+    }
+  }
+}
+
+async function unauthorized(req) {
   if (req.path === '/') {
     let clientID = process.env.GOOGLE_CLIENT_ID
     let secret = process.env.GOOGLE_CLIENT_SECRET
@@ -20,4 +28,4 @@ async function handler(req) {
   }
 }
 
-exports.handler = http.async(handler)
+exports.handler = http.async(authorized, unauthorized)
