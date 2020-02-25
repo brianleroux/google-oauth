@@ -12,4 +12,4 @@ async function http(req) {
   }
 }
 
-exports.handler = arc.http.async(http)
+exports.handler = arc.http.proxy.public({spa:false})//.async(http)
