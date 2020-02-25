@@ -4,7 +4,12 @@ const { http } = require('@architect/functions')
 async function authorized(req) {
   if (req.session.account) {
     return {
-      html: `<pre>${JSON.stringify( req.session, null, 2 )}</pre>`
+      html: `
+        <form action=/logout method=post>
+          <button>logout</button>
+        </form>
+        <pre>${JSON.stringify( req.session, null, 2 )}</pre>
+      `
     }
   }
 }
